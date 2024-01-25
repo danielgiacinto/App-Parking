@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 
 // conexion con postgresql
 builder.Services.AddEntityFrameworkNpgsql().AddDbContext<DbEstacionamientoContext>(options => 
-options.UseNpgsql(builder.Configuration.GetConnectionString("DBconnection")));
+options.UseNpgsql(builder.Configuration.GetConnectionString("Server=localhost;Port=5432;Database=db_estacionamiento;User Id=postgres;Password=123456")));
 
 // agregar mediatR
 builder.Services.AddMediatR((config) =>
