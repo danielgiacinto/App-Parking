@@ -1,0 +1,125 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <h4 class="text-secondary display-5 ps-3"><i class="bi bi-tools text-secondary fs-1"></i> Soporte</h4>
+        </div>
+    </div>
+    <div class="row">
+        <h5 class="text-muted fs-3 fw-light">• Tarifa</h5>
+        <div class="col-md-4">
+            <button type="button" class="boton" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                (click)="getPrice()">
+                <i class="bi bi-tag-fill"> Actualizar tarifa</i>
+            </button>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fw-bolder fs-5" id="exampleModalLabel">Actualizar tarifa</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <p class="fw-light fs-5">Tarifa actual - {{price.priceName | currency}} x hora</p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Nueva tarifa x hora</label>
+                            <input type="number" class="form-control" placeholder="Tarifa" id="price" name="price"
+                                [(ngModel)]="price.priceName">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" (click)="updatePrice(price)">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mt-4">
+            <h5 class="text-muted fs-3 fw-light">• Vehiculos</h5>
+            <button type="button" class="boton" data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="getBrands()">
+                <i class="bi bi-car-front-fill"> Marcas</i>
+            </button>
+            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel2">Lista de marcas</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="fw-bolder fs-5" scope="col">ID</th>
+                                        <th class="fw-bolder fs-5" scope="col">Nombre</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let brand of brands" class="table table-hover">
+                                        <td class="fw-light fs-5 opacity-25">{{brand.idBrand}}</td>
+                                        <td class="fw-light fs-5">{{brand.brandName}}</td>
+                                        <td class="fw-light fs-5 text-end">
+                                            <button type="button" class="btn btn-danger" (click)="deleteBrand(brand.idBrand)">
+                                                Borrar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer justify-content-start">
+                            <div class="col-md-6">
+                                <input type="text" name="brand" id="brand" required="required" minlength="2" maxlength="15"
+                                class="form-control" placeholder="Marca" [(ngModel)]="brand.brandName">
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-outline-success" (click)="createBrand(brand)"><i class="bi bi-plus-circle-fill"> Agregar</i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mt-4">
+            <h5 class="text-muted fs-3 fw-light">• Cuenta</h5>
+            <button type="button" class="boton" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                <i class="bi bi-key"></i> Cambiar contraseña
+            </button>
+            <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel3"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel2">Crear nueva contraseña</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label">Escribe la contraseña actual</label>
+                                <input type="password" class="form-control" id="password" name="password" #actualPassword required>
+                            </div>
+                            <div class="col-md-6 mb-0">
+                                <label for="newPassword" class="form-label">Escribe una nueva contraseña</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword" #newPassword required>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-start">
+                            <button type="button" class="btn btn-outline-success" (click)="updatePassword(actualPassword.value, newPassword.value)"><i class="bi bi-check-lg"> Actualizar contraseña</i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

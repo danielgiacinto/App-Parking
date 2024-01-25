@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <div class="row">
+        <div [style.width]="barraWidth" class="barra">
+            <a class="btn btn-primary mt-2 mb-2 boton" (click)="toggleBarWidth()" title="Expandir">
+                <i class="bi bi-list"></i>
+                <span *ngIf="expand"> App</span>
+            </a>
+            <a class="btn btn-secondary mt-2 mb-2 boton" routerLink="/home/main" title="Inicio">
+                <i class="bi bi-house"></i>
+                <span *ngIf="expand"> Inicio</span>
+            </a>
+            <a class="btn btn-secondary mt-2 mb-2 boton" routerLink="/home/support" title="Soporte">
+                <i class="bi bi-pencil-square"></i>
+                <span *ngIf="expand"> Soporte</span>
+            </a>
+            <a class="btn btn-secondary mt-2 mb-2 boton" routerLink="/home/cars" title="Parking">
+                <i class="bi bi-car-front-fill"></i>
+                <span *ngIf="expand"> Parking</span>
+            </a>
+            <a class="btn btn-secondary mt-2 mb-2 boton" routerLink="/home/history" title="Historial">
+                <i class="bi bi-clock-history"></i>
+                <span *ngIf="expand"> Historial</span>
+            </a>
+            <a class="btn btn-secondary mt-2 mb-2 boton" routerLink="/home/report" title="Reportes">
+                <i class="bi bi-reception-4"></i>
+                <span *ngIf="expand"> Reportes</span>
+            </a>
+            <a class="btn btn-danger mt-2 mb-2 boton" (click)="cerrarSesion()" title="Cerrar sesion">
+                <i class="bi bi-x-circle"></i>
+                <span *ngIf="expand"> Cerrar sesion</span>
+            </a>
+        </div>
+        <div class="col-md-10 home pb-5" [style.width]="calcHomeWidth()">
+            <div class="row text-center mt-2">
+                <a routerLink="/home/main" style="width: 100px; height: 90px;" class="d-flex justify-content-center m-auto">
+                    <img src="assets/logo1.jpeg" class="logo">
+                </a>
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

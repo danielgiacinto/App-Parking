@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mb-4">
+      <h4 class="text-secondary display-5 ps-3">
+        <i class="bi bi-car-front text-secondary fs-1"></i> Registro Historico
+      </h4>
+    </div>
+  </div>
+  <div class="row mb-4 rounded-5 p-4 bg-secondary bg-opacity-50">
+    <div class="col-md-12 mb-2">
+      <h5 class="text-white fs-3 fst-italic">Filtros de busqueda</h5>
+    </div>
+    <hr>
+    <div class="col-md-2">
+      <label for="patent" class="form-label text-muted">Patente</label>
+      <input type="text" class="form-control" placeholder="Patente">
+    </div>
+    <div class="col-md-3">
+      <label for="patent" class="form-label text-muted">Fecha desde</label>
+      <input type="date" class="form-control" placeholder="Fecha de ingreso">
+    </div>
+    <div class="col-md-3">
+      <label for="patent" class="form-label text-muted">Fecha hasta</label>
+      <input type="date" class="form-control" placeholder="Fecha de egreso">
+    </div>
+    <div class="col-md-4 align-self-end">
+      <button class="btn btn-info text-white" type="button"><i class="bi bi-search"> Buscar</i></button>
+    </div>
+</div>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col-md-12" style="padding-right: 100px; padding-left: 100px;">
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item" *ngFor="let car of carsHistorical; let i = index">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed fs-5 text-primary fst-italic" type="button" data-bs-toggle="collapse" 
+            [attr.data-bs-target]="'#flush-collapse' + i" aria-expanded="false" [attr.aria-controls]="'flush-collapse' + i">
+              <span class="fw-bold"><i class="bi bi-textarea-resize"></i> {{ car.patent }}</span> - {{ car.type }} - {{car.brand}}, {{car.model}}
+            </button>
+          </h2>
+          <div [id]="'flush-collapse' + i" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <h5><i class="bi bi-calendar4-week"></i> Fecha de ingreso: {{ car.admissionDate}}</h5>
+              <h5><i class="bi bi-calendar2-week-fill"></i> Fecha de egreso: {{ car.dischargeDate}}</h5>
+              <h5><i class="bi bi-card-checklist"></i> Estado: {{ car.state}}</h5>
+              <h5><i class="bi bi-cash-coin"></i> Monto cobrado: {{ car.amount | currency}}</h5>
+              <h5> <i class="bi bi-coin"></i> Tipo de cobro: {{car.format}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

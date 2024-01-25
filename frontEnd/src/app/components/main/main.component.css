@@ -1,0 +1,24 @@
+.tarjeta {
+    border-radius: 20px;
+    transition: 0.3s ease-in-out;
+}
+
+.tarjeta:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    transition: 0.3s ease-in-out; 
+    box-shadow: 5px 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.boton {
+    background-color: rgb(34, 176, 79);
+    color: white;
+    font-size: 18px;
+    padding: 15px 32px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    display: flex;
+    border-radius: 20px;
+    border: none;
+}

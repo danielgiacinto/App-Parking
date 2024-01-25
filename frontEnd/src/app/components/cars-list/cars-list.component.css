@@ -1,0 +1,43 @@
+.tarjeta {
+    background-color: #5DADE2;
+    border: none;
+    transition: width 0.3s;
+    opacity: 0.9;
+}
+.tarjeta:hover {
+    background-color: rgba(35, 121, 170, 0.8);
+    opacity: 1;
+}
+.ubicaciones-grid {
+    display: flex;
+    flex-direction: column;
+}
+  
+.ubicaciones-fila {
+    display: flex;
+}
+  
+.ubicacion {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #28B463;
+    color: white;
+}
+
+.ubicacion.seleccionada {
+    background-color: #1e9d53;
+    border: 2px solid #444444;
+    box-shadow: 2px 2px 5px #ccc;
+}
+
+.ubicacion.ocupada {
+    background-color: #CB4335;
+    color: white;
+    cursor: unset;
+}

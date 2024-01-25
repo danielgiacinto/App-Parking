@@ -1,0 +1,232 @@
+<div class="container">
+    <form #form="ngForm" (ngSubmit)="buscarPatente(form)" class="needs-validation">
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <h4 class="text-secondary display-5 ps-3"><i class="bi bi-car-front text-secondary fs-1"></i> Parking
+                </h4>
+            </div>
+        </div>
+        <div class="row mb-4 rounded-5 p-4 bg-secondary bg-opacity-25">
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Patente" [(ngModel)]="patent" id="validationTooltip01"
+                    name="patent" required minlength="6" maxlength="7" #controlPatent="ngModel" 
+                    [ngClass]="{'is-invalid': (form.submitted || (controlPatent.dirty || controlPatent.touched)) && controlPatent.invalid,
+                'is-valid': (controlPatent.dirty || controlPatent.touched) && controlPatent.valid}">
+                <div *ngIf="(form.submitted || controlPatent.dirty || controlPatent.touched) && controlPatent.invalid"
+                    class="invalid-feedback">
+                    <div *ngIf="controlPatent.errors?.['required']">Debe ingresar una patente</div>
+                    <div *ngIf="controlPatent.errors?.['minlength']">La patente debe tener al menos 6 caracteres</div>
+                    <div *ngIf="controlPatent.errors?.['maxlength']">La patente debe tener como máximo 7 caracteres
+                    </div>
+                </div>          
+            </div>
+            <div class="col-md-2 border-right border-2">
+                <button class="btn btn-info" type="submit">
+                    <i class="bi bi-search text-white"> Buscar</i>
+                </button>
+                <button class="btn btn-secondary opacity-75 ms-2" (click)="limpiarPatente(form)">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="col-md-8 text-end">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    (click)="inicializarFechaEntrada()">
+                    <i class="bi bi-plus-lg"></i> Nuevo vehiculo
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Nuevo vehiculo -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-3 fw-bold" id="staticBackdropLabel"><i class="bi bi-car-front"> Registrar
+                            nuevo vehiculo</i></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form [formGroup]="formRegister" (ngSubmit)="registrarVehiculo(formRegister)">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="patent" class="form-label text-muted">Patente</label>
+                                <input type="text" class="form-control is-invalid is-valid" placeholder="Patente"
+                                    id="patent" name="patent" required minlength="6" maxlength="7"
+                                    formControlName="patent">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="type" class="form-label text-muted">Tipo de vehiculo</label>
+                                <select name="type" id="type" class="form-select" formControlName="type">
+                                    <option value="1">Automovil</option>
+                                    <option value="2">Camioneta</option>
+                                    <option value="3">Motocicleta</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4" *ngIf="brands.length > 0">
+                                <label for="brand" class="form-label text-muted">Marca</label>
+                                <select name="brand" id="brand" class="form-select" formControlName="brand">
+                                    <option *ngFor="let brand of brands" [value]="brand.idBrand">
+                                        {{brand.brandName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="model" class="form-label text-muted">Modelo</label>
+                                <input type="text" class="form-control" placeholder="Modelo" id="model" name="model"
+                                    formControlName="model">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="state" class="form-label text-muted">Estado</label>
+                                <select name="state" id="state" class="form-select" formControlName="state">
+                                    <option value="1">Pendiente</option>
+                                    <option value="2">Pagado</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="date" class="form-label text-muted">Fecha ingreso</label>
+                                <input type="datetime-local" class="form-control" id="admissionDate"
+                                    name="admissionDate" formControlName="admissionDate">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="ubicacion" class="form-label text-muted">Ubicacion</label>
+                                <div class="ubicaciones-grid">
+                                    <div *ngFor="let fila of ubicaciones let i = index" class="ubicaciones-fila">
+                                        <label for="ubicacion" class="form-label text-muted pt-3">P {{i + 1}}</label>
+                                        <button *ngFor="let ubicacion of fila" class="ubicacion"
+                                            [class.ocupada]="!esUbicacionDisponible(ubicacion)"
+                                            (click)="asignarUbicacion($event, ubicacion)"
+                                            [class.seleccionada]="ubicacion === ubicacionSeleccionada">
+                                            {{ ubicacion }}
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="hidden" formControlName="location">
+                            </div>
+                            <div class="col-md-6 mt-5 text-start">
+                                <h5 class="text-muted fs-4 mt-3"> 🟢 Disponibles</h5>
+                                <h5 class="text-muted fs-4 mt-2"> 🔴 Ocupados</h5>
+                                <h5 class="text-muted fs-5 mt-5 ms-1"><i class="bi bi-tag-fill"> Tarifa x hora -
+                                        {{price.priceName | currency}}</i></h5>
+                            </div>
+                        </div>
+                        <div class="modal-footer mb-0">
+                            <button type="button" class="btn btn-secondary p-3 fs-6" data-bs-dismiss="modal"><i
+                                    class="bi bi-x-lg"></i>Cancelar</button>
+                            <button type="submit" class="btn btn-success p-3 fs-6" [disabled]="formRegister.invalid"><i
+                                    class="bi bi-check-lg"></i>Registrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registrar Salida -->
+    <div class="modal fade" id="registrarSalida" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-3 fw-bold" id="staticBackdropLabel"><i class="bi bi-car-front"> Registrar
+                            salida del vehiculo</i></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form [formGroup]="formExit" (ngSubmit)="registrarSalida()">
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="patent" class="form-label text-muted">Patente</label>
+                                <input type="text" class="form-control" value={{car.patent}} readonly [disabled]="true">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="brand" class="form-label text-muted">Tipo</label>
+                                <input type="text" class="form-control" value="{{car.type}}" readonly [disabled]="true">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="brand" class="form-label text-muted">Marca</label>
+                                <input type="text" class="form-control" value="{{car.brand}}" readonly
+                                    [disabled]="true">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="location" class="form-label text-muted">Ubicacion</label>
+                                <input type="text" class="form-control" value="{{car.location}}" readonly
+                                    [disabled]="true">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="date" class="form-label text-muted">Fecha ingreso</label>
+                                <input type="datetime-local" class="form-control" id="admissionDate"
+                                    name="admissionDate" value="{{car.admissionDate}}" readonly [disabled]="true">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="date" class="form-label text-muted">Fecha egreso</label>
+                                <input type="datetime-local" class="form-control" id="dischargeDate"
+                                    name="dischargeDate" formControlName="dischargeDate" value="{{car.dischargeDate}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="brand" class="form-label text-muted">Tipo de cobro</label>
+                                <select name="format" id="format" class="form-select" formControlName="format">
+                                    <option *ngFor="let payment of payments" [value]="payment.id">
+                                        {{payment.format}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mt-4">
+                                <h4 class="text-muted">Monto a cobrar {{car.amount| currency}}</h4>
+                            </div>
+                            <div class="col-md-6 mt-4">
+                                <label for="date" class="form-label text-muted"></label>
+                                <button (click)="calculateAmount($event)" class="btn btn-success">Calcular
+                                    precio</button>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer mb-0">
+                            <button type="button" class="btn btn-secondary p-3 fs-6" data-bs-dismiss="modal"><i
+                                    class="bi bi-x-lg"></i>Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-success p-3 fs-6" [disabled]="formExit.invalid"><i
+                                    class="bi bi-check-lg"></i>Registrar cobro
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tarjetas de autos -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let car of cars">
+            <div class="card p-2 rounded-5 shadow tarjeta">
+                <div class="card-body m-0">
+                    <h5 class="card-title fw-bolder fs-3 m-0">{{car.patent}}</h5>
+                    <p class="card-text fw-light fs-5 m-0">{{car.type}}, {{car.brand}} - {{car.model}}</p>
+                </div>
+                <div class="card-footer text-white text-opacity-75">
+                    <h4 class="card-text"><i class="bi bi-calendar4-week"> Entrada | </i>
+                        {{formatearFecha(car.admissionDate.toString())}}</h4>
+                    <h4 class="card-text"><i class="bi bi-geo-alt"> Ubicacion | </i>{{car.location}}</h4>
+                    <h4 class="card-text"><i class="bi bi-card-checklist"> Estado | </i>{{car.state}}</h4>
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn btn-warning opacity-75 me-3" (click)="generarPDF(car)"><i
+                            class="bi bi-printer"></i> Comprobante</button>
+                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#registrarSalida"
+                        (click)="setCar(car)" (click)="inicializarFechaSalida()"><i class="bi bi-box-arrow-down"></i>
+                        Registrar salida</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

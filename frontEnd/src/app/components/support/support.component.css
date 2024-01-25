@@ -1,0 +1,15 @@
+.boton {
+    background-color: rgb(84, 84, 84);
+    color: white;
+    border: none;
+    transition: width 0.3s;
+    opacity: 0.9;
+    border-radius: 25px;
+    padding: 25px;
+    font-size: 25px;
+}
+
+.boton:hover {
+    background-color: rgba(131, 131, 131, 0.8);
+    opacity: 1;
+}

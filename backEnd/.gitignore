@@ -1,0 +1,11 @@
+# Ignore launchSettings.json 
+/backend/Properties/launchSettings.json
+
+# Ignore appsettings.Development.json
+/backEnd/bin/Debug/net7.0/appsettings.Development.json
+
+# Ignore appsettings.json
+/backEnd/bin/Debug/net7.0/appsettings.json
+
+# Ignore DbEstacionamientoContext.cs
+/backEnd/Models/DbEstacionamientoContext.cs
