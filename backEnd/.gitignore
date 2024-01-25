@@ -1,14 +1,14 @@
 # Ignore appsettings.Development.json
-backEnd/appsettings.Development.json
+appsettings.Development.json
 
 # Ignore appsettings.json
-backEnd/appsettings.json
+appsettings.json
 
 # Ignore DbEstacionamientoContext.cs
-backEnd/Models/DbEstacionamientoContext.cs
+Models/DbEstacionamientoContext.cs
 
 # Ignore appsetting.Development.json
-backEnd/bin/Debug/net7.0/appsettings.Development.json
+bin/Debug/net7.0/appsettings.Development.json
 
 # Ignore appsettings.json
-backEnd/bin/Debug/net7.0/appsettings.json
+bin/Debug/net7.0/appsettings.json
