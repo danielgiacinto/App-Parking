@@ -1,11 +1,14 @@
-# Ignore launchSettings.json 
-d:\Documentos\DANIEL\variosss\App-Parking\backEnd\Properties\launchSettings.json
-
 # Ignore appsettings.Development.json
-d:\Documentos\DANIEL\variosss\App-Parking\backEnd\bin\Debug\net7.0\appsettings.Development.json
+backEnd/appsettings.Development.json
 
 # Ignore appsettings.json
-d:\Documentos\DANIEL\variosss\App-Parking\backEnd\bin\Debug\net7.0\appsettings.json
+backEnd/appsettings.json
 
 # Ignore DbEstacionamientoContext.cs
-d:\Documentos\DANIEL\variosss\App-Parking\backEnd\Models\DbEstacionamientoContext.cs
+backEnd/Models/DbEstacionamientoContext.cs
+
+# Ignore appsetting.Development.json
+backEnd/bin/Debug/net7.0/appsettings.Development.json
+
+# Ignore appsettings.json
+backEnd/bin/Debug/net7.0/appsettings.json

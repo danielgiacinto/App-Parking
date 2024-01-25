@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dG3zIE1ERC6zVhKYgR+HOc6neSnGoLnUXLMbKMcqpE6p0Pp2wrKhQ1/k1ZxIDNr07KLHWTRrLzjCNPd/ui0PUw==",
+  "dgSpecHash": "H8evBl3EHxNxsOf8WoXzQrNKl1TmZ0H5R4pA36e2r30H+YOKO6DGh4NWT/rini4fm1IiN/PAXqH277VWAFgRrA==",
   "success": true,
-  "projectFilePath": "D:\\Documentos\\DANIEL\\variosss\\App-Parking\\backEnd\\backEnd.csproj",
+  "projectFilePath": "d:\\Documentos\\DANIEL\\variosss\\App-Parking\\backEnd\\backEnd.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Usuario\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

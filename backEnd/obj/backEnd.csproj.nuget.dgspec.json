@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documentos\\DANIEL\\variosss\\App-Parking\\backEnd\\backEnd.csproj": {}
+    "d:\\Documentos\\DANIEL\\variosss\\App-Parking\\backEnd\\backEnd.csproj": {}
   },
   "projects": {
-    "D:\\Documentos\\DANIEL\\variosss\\App-Parking\\backEnd\\backEnd.csproj": {
+    "d:\\Documentos\\DANIEL\\variosss\\App-Parking\\backEnd\\backEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documentos\\DANIEL\\variosss\\App-Parking\\backEnd\\backEnd.csproj",
+        "projectUniqueName": "d:\\Documentos\\DANIEL\\variosss\\App-Parking\\backEnd\\backEnd.csproj",
         "projectName": "backEnd",
-        "projectPath": "D:\\Documentos\\DANIEL\\variosss\\App-Parking\\backEnd\\backEnd.csproj",
+        "projectPath": "d:\\Documentos\\DANIEL\\variosss\\App-Parking\\backEnd\\backEnd.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "D:\\Documentos\\DANIEL\\variosss\\App-Parking\\backEnd\\obj\\",
+        "outputPath": "d:\\Documentos\\DANIEL\\variosss\\App-Parking\\backEnd\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
