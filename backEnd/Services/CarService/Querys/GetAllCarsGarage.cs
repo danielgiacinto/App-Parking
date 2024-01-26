@@ -34,6 +34,7 @@ namespace backEnd.Services.Querys
                 .Include(c => c.FormatNavigation)
                 .Where(c => c.Garage == true)
                 .Where(c => c.Location != "None")
+                .OrderByDescending(c => c.AdmissionDate)
                 .ToListAsync();
                 var carsResponse = _mapper.Map<List<CarResponse>>(carsGarage);
                 return carsResponse;

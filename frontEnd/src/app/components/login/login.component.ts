@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/Model/User';
 import { LoginService } from 'src/app/services/login.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -18,22 +19,36 @@ export class LoginComponent {
 
   constructor(private loginService: LoginService, private router : Router) { }
 
-  loginUser(login: NgForm) {
-    this.user.email = login.value.email;
-    this.user.password = login.value.password;
-    this.loginService.loginUser(this.user).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.router.navigate(['/home/main']);
-        this.login = true;
-      },
-      error: (err) => {
-        console.log(err);
-        alert("Login fallido");
+  loginUser(loginForm: NgForm) {
+    if(loginForm.valid && this.isValidEmail(loginForm.value.email)) {
+      this.user.email = loginForm.value.email;
+      this.user.password = loginForm.value.password;
+      this.loginService.loginUser(this.user).subscribe({
+        next: (data) => {
+          this.router.navigate(['/home/main']);
+          this.login = true;
+        },
+        error: () => {
+          Swal.fire({
+            title: "Datos incorrectos !",
+            text: "Por favor, ingrese nuevamente los datos",
+            icon: "error",
+          });
+        }
       }
+      );
+    } else {
+      Swal.fire({
+        title: "Datos incorrectos",
+        text: "Por favor, ingrese nuevamente los datos",
+        icon: "error",
+      });
     }
-    );
-  }
 
+  }
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 
 }

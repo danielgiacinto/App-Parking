@@ -89,7 +89,7 @@
                             <div class="col-md-6">
                                 <label for="date" class="form-label text-muted">Fecha ingreso</label>
                                 <input type="datetime-local" class="form-control" id="admissionDate"
-                                    name="admissionDate" formControlName="admissionDate">
+                                    name="admissionDate" formControlName="admissionDate" readonly>
                             </div>
                         </div>
                         <div class="row">
@@ -171,7 +171,7 @@
                             <div class="col-md-6">
                                 <label for="date" class="form-label text-muted">Fecha egreso</label>
                                 <input type="datetime-local" class="form-control" id="dischargeDate"
-                                    name="dischargeDate" formControlName="dischargeDate" value="{{car.dischargeDate}}">
+                                    name="dischargeDate" formControlName="dischargeDate" value="{{car.dischargeDate}}" readonly [disabled]="true">
                             </div>
                             <div class="col-md-6">
                                 <label for="brand" class="form-label text-muted">Tipo de cobro</label>

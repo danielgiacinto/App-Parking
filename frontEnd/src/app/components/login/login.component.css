@@ -1,0 +1,14 @@
+.logo {
+    width: 100px;
+    height: 90px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 50%;
+    margin: auto;
+    opacity: 0.9;
+}
+
+.logo:hover {
+    opacity: 1;
+}
