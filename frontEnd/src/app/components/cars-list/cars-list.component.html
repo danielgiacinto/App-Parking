@@ -1,12 +1,12 @@
 <div class="container">
     <form #form="ngForm" (ngSubmit)="buscarPatente(form)" class="needs-validation">
         <div class="row">
-            <div class="col-md-3 mb-4">
+            <div class="col-md-3 mb-3">
                 <h4 class="text-secondary display-5 ps-3"><i class="bi bi-car-front text-secondary fs-1"></i> Parking
                 </h4>
             </div>
         </div>
-        <div class="row mb-4 rounded-5 p-4 bg-secondary bg-opacity-25">
+        <div class="row mb-1 bg-secondary bg-opacity-25 rounded-5 p-4">
             <div class="col-md-2">
                 <input type="text" class="form-control" placeholder="Patente" [(ngModel)]="patent" id="validationTooltip01"
                     name="patent" required minlength="6" maxlength="7" #controlPatent="ngModel" 
@@ -21,19 +21,36 @@
                 </div>          
             </div>
             <div class="col-md-2 border-right border-2">
-                <button class="btn btn-info" type="submit">
+                <button class="btn btn-info rounded-3" type="submit">
                     <i class="bi bi-search text-white"> Buscar</i>
                 </button>
-                <button class="btn btn-secondary opacity-75 ms-2" (click)="limpiarPatente(form)">
+                <button class="btn btn-secondary rounded-3 opacity-75 ms-2" (click)="limpiarPatente(form)">
                     <i class="bi bi-x-lg"></i>
                 </button>
             </div>
-            <div class="col-md-8 text-end">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            <div class="col-md-5 text-end">
+                <button type="button" class="btn btn-success rounded-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                     (click)="inicializarFechaEntrada()">
                     <i class="bi bi-plus-lg"></i> Nuevo vehiculo
                 </button>
             </div>
+            <div class="col-md-3">
+                <select class="form-select rounded-4 text-muted bg-secondary bg-opacity-25 border-2 border-0" (change)="ordenarPor($event)">
+                    <option value="" disabled selected>Ordenar por</option>
+                    <option value="1" >Mas recientes</option>
+                    <option value="2">Mas antiguos</option>
+                    <option value="3">Automovil</option>
+                    <option value="4">Camioneta</option>
+                    <option value="5">Motocicleta</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-muted fw-light fst-italic fs-5 ms-4">{{cars.length}} resultados</p>
+                <hr class="opacity-25 mt-0">
+            </div>
+            
         </div>
     </form>
 
@@ -58,7 +75,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="type" class="form-label text-muted">Tipo de vehiculo</label>
-                                <select name="type" id="type" class="form-select" formControlName="type">
+                                <select name="type" id="type" class="form-select" formControlName="type" (change)="setCarType($event)">
                                     <option value="1">Automovil</option>
                                     <option value="2">Camioneta</option>
                                     <option value="3">Motocicleta</option>
@@ -77,7 +94,7 @@
                             <div class="col-md-6">
                                 <label for="date" class="form-label text-muted">Fecha ingreso</label>
                                 <input type="datetime-local" class="form-control" id="admissionDate"
-                                    name="admissionDate" formControlName="admissionDate" readonly>
+                                    name="admissionDate" formControlName="admissionDate">
                             </div>
                         </div>
                         <div class="row">
@@ -164,7 +181,7 @@
                             <div class="col-md-6">
                                 <label for="date" class="form-label text-muted">Fecha egreso</label>
                                 <input type="datetime-local" class="form-control" id="dischargeDate"
-                                    name="dischargeDate" formControlName="dischargeDate" value="{{car.dischargeDate}}" readonly [disabled]="true">
+                                    name="dischargeDate" formControlName="dischargeDate" value="{{car.dischargeDate}}">
                             </div>
                             <div class="col-md-6">
                                 <label for="brand" class="form-label text-muted">Tipo de cobro</label>

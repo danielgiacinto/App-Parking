@@ -6,26 +6,28 @@
       </h4>
     </div>
   </div>
-  <div class="row mb-4 rounded-5 p-4 bg-secondary bg-opacity-50">
-    <div class="col-md-12 mb-2">
-      <h5 class="text-white fs-3 fst-italic">Filtros de busqueda</h5>
-    </div>
-    <hr>
-    <div class="col-md-2">
-      <label for="patent" class="form-label text-muted">Patente</label>
-      <input type="text" class="form-control" placeholder="Patente">
-    </div>
+  <div class="row mb-4 rounded-5 p-3 bg-secondary bg-opacity-25">
     <div class="col-md-3">
       <label for="patent" class="form-label text-muted">Fecha desde</label>
-      <input type="date" class="form-control" placeholder="Fecha de ingreso">
+      <input type="datetime-local" class="form-control" placeholder="Fecha de ingreso" [(ngModel)]="fechaDesde">
     </div>
     <div class="col-md-3">
       <label for="patent" class="form-label text-muted">Fecha hasta</label>
-      <input type="date" class="form-control" placeholder="Fecha de egreso">
+      <input type="datetime-local" class="form-control" placeholder="Fecha de egreso" [(ngModel)]="fechaHasta">
     </div>
-    <div class="col-md-4 align-self-end">
-      <button class="btn btn-info text-white" type="button"><i class="bi bi-search"> Buscar</i></button>
+    <div class="col-md-3 align-self-end">
+      <button class="btn btn-info text-white" (click)="buscarPorFechas()" type="button"><i class="bi bi-search"> Buscar</i></button>
     </div>
+    <div class="col-md-2 align-self-end ms-5">
+      <label for="patent" class="form-label text-muted"> Ordenar por</label>
+      <select class="form-select rounded-4 text-muted bg-secondary bg-opacity-25 border-2 border-0" (change)="ordenarPor($event)">
+          <option value="1" selected>Mas recientes</option>
+          <option value="2">Mas antiguos</option>
+          <option value="3">Automovil</option>
+          <option value="4">Camioneta</option>
+          <option value="5">Motocicleta</option>
+      </select>
+  </div>
 </div>
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col-md-12" style="padding-right: 100px; padding-left: 100px;">

@@ -5,26 +5,31 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3">
-            <div class="card border border-0 shadow tarjeta align-items-center" style="width: 18rem; height: 18rem;">
-                <div class="card-body mt-4">
-                    <p class="card-text fs-3 text-muted">🟢{{available.available}} Disponibles </p>
-                    <p class="card-text fs-3 text-muted">🔴{{available.busy}} Ocupados </p>
+        <div class="col-md-4 col-sm-3 me-3">
+            <div class="card border border-0 shadow tarjeta pb-2">
+                <div class="card-body">
+                    <h3 class="text-center fs-1 text-muted fw-bolder"><i class="bi bi-box"> Parking</i></h3>
                     <hr>
-                    <button type="button" class="btn btn-success boton" (click)="goToCars()"> <i class="bi bi-plus-square-fill"> Nuevo vehiculo</i></button>
+                    <p class="card-text fs-2 text-muted text-center">🟢{{available.available}} Disponibles </p>
+                    <p class="card-text fs-2 text-muted text-center">🔴{{available.busy}} Ocupados </p>
+                    <hr>
+                    <button type="button" class="btn btn-success boton mt-2" (click)="goToCars()"> <i class="bi bi-plus-square-fill"> Nuevo vehiculo</i></button>
                 </div>
             </div>  
         </div>
-        <div class="col-md-3">
-            <div class="card tarjeta border border-0 shadow align-items-center" style="width: 18rem; height: 10rem">
-                <div class="card-title text-center mt-4 pt-2">
-                    <h5 class="text-muted fw-bolder fs-3"> <i>💲</i>Tarifa x Hora</h5>
-                    <p class="card-text fs-3 text-muted">{{price.priceName | currency}}</p>
+        <div class="col-md-3 me-4">
+            <div class="card tarjeta border border-0 shadow align-items-center">
+                <div class="card-title text-center mt-4 mb-4 me-4 ms-4">
+                    <h5 class="text-muted fw-bolder fs-2"> <i>💲</i>Tarifa x hora</h5>
+                    <hr>
+                    <p class="card-text fs-5 text-muted">Camioneta {{priceVan.priceName | currency}}</p>
+                    <p class="card-text fs-5 text-muted">Automovil {{priceCar.priceName | currency}}</p>
+                    <p class="card-text fs-5 text-muted">Motocicleta {{priceMotorcycle.priceName | currency}}</p>
                 </div>
             </div>
-            <button class="card btn btn-light border border-0 mt-4 fs-1 text-secondary shadow tarjeta" style="width: 18rem;" (click)="goToSupport()">
-                <i class="bi bi-gear"> Soporte</i> 
-            </button>
+            <div class="col-md-12 col-sm-6 card tarjeta border border-0 shadow mt-3">
+                <button class="btn fs-2 text-muted" (click)="goToSupport()"><i class="bi bi-gear-wide-connected"></i> Soporte</button>
+            </div>
         </div>
     </div>
 </div>

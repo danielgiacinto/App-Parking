@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import Brand from 'src/app/Model/Brand';
+import { CarType } from 'src/app/Model/CarType';
 import Price from 'src/app/Model/Price';
 import { BrandService } from 'src/app/services/brand.service';
+import { CarTypeService } from 'src/app/services/carType.service';
 import { LoginService } from 'src/app/services/login.service';
 import { PriceService } from 'src/app/services/price.service';
 import Swal from 'sweetalert2';
@@ -14,30 +16,41 @@ import Swal from 'sweetalert2';
 })
 export class SupportComponent {
 
-
-  price: Price = new Price();
+  price : Price = new Price();
   brands: Brand[] = [];
+  carTypes: CarType[] = []; 
+  carType: CarType = new CarType();
   brand: Brand = new Brand();
-  constructor(private priceService: PriceService, private brandService: BrandService, private loginService: LoginService) {}
+  constructor(private priceService: PriceService, private brandService: BrandService, private loginService: 
+    LoginService, private carTypeService: CarTypeService) {}
+
+  ngOnInit() {
+    this.getBrands();
+    this.getCarTypes();
+  }
+
+  setCarType(event: any) {
+    this.price.id = event.target.value;
+    console.log(this.price);
+  }
 
   updatePrice(price : Price) {
-    this.price = price;
-    console.log(this.price);
-    this.priceService.updatePrice(price).subscribe({
-      next: (data) => {
-        console.log(data);
-        alert("Actualizado con exito");
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
-  getPrice() {
-    this.priceService.getPrice().subscribe((data) => {
-      console.log(data);
-      this.price = data;
-    });
+    if(price.id != 0 && price.priceName != 0) {
+      this.price = price;
+      console.log(this.price);
+      this.priceService.updatePrice(price).subscribe({
+        next: (data) => {
+          console.log(data);
+          alert("Actualizado con exito");
+        },
+        error: (err) => {
+          console.log(err);
+       },
+      });
+    } else {
+      alert("Seleccione una opcion, el precio no puede ser cero.");
+    }
+    
   }
 
   getBrands() {
@@ -114,5 +127,12 @@ export class SupportComponent {
         alert("Error, contraseña no actualizada");
       },
     })
+  }
+
+  getCarTypes() {
+    this.carTypeService.getCarTypes().subscribe((data) => {
+      console.log(data);
+      this.carTypes = data;
+    });
   }
 }

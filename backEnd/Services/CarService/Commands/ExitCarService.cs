@@ -96,7 +96,7 @@ namespace backEnd.Services.CarService.Commands
                     car.DischargeDate = request.DischargeDate;
                     car.Format = request.Format;
                     TimeSpan duration = request.DischargeDate - car.AdmissionDate;
-                    Price? price = await _context.Prices.FindAsync(1);
+                    Price? price = await _context.Prices.FindAsync(car.Type);
                     car.Amount = (decimal)duration.TotalHours * price.PriceName;
 
                     await _context.SaveChangesAsync();

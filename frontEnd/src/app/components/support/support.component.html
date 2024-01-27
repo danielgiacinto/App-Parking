@@ -1,14 +1,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3 mb-4">
-            <h4 class="text-secondary display-5 ps-3"><i class="bi bi-tools text-secondary fs-1"></i> Soporte</h4>
+            <h4 class="text-secondary display-5 ps-3"><i class="bi bi-gear-wide-connected"></i> Soporte</h4>
         </div>
     </div>
     <div class="row">
         <h5 class="text-muted fs-3 fw-light">• Tarifa</h5>
         <div class="col-md-4">
-            <button type="button" class="boton" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                (click)="getPrice()">
+            <button type="button" class="boton" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="bi bi-tag-fill"> Actualizar tarifa</i>
             </button>
         </div>
@@ -16,12 +15,20 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fw-bolder fs-5" id="exampleModalLabel">Actualizar tarifa</h1>
+                        <h1 class="modal-title fw-bolder fs-5" id="exampleModalLabel" (click)="getCarTypes()">Actualizar tarifa</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <p class="fw-light fs-5">Tarifa actual - {{price.priceName | currency}} x hora</p>
+                            <p class="fw-light fs-5">Tarifa - {{price.priceName | currency}} x hora</p>
+                        </div>
+                        <div class="mb-3">
+                            <select name="type" id="type" class="form-select">
+                                <option value="" disabled selected>Selecciona un tipo...</option>
+                                <option *ngFor="let type of carTypes" [value]="type.idCarType" (click)="setCarType($event)">
+                                    {{type.type}}
+                                </option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Nueva tarifa x hora</label>

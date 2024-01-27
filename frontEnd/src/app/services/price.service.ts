@@ -10,10 +10,10 @@ export class PriceService {
 
   constructor(private http: HttpClient) { }
 
-  urlPrice = 'http://localhost:5284/price/1';
+  urlPrice = 'http://localhost:5284/price/';
 
-  getPrice(): Observable<Price> {
-    return this.http.get<Price>(this.urlPrice);
+  getPrice(id : number): Observable<Price> {
+    return this.http.get<Price>(this.urlPrice + id);
   }
 
   updatePrice(price: Price): Observable<Price> {
@@ -22,6 +22,6 @@ export class PriceService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.put<Price>(this.urlPrice, price, httpOptions);
+    return this.http.put<Price>(this.urlPrice + price.id, price, httpOptions);
   }
 }

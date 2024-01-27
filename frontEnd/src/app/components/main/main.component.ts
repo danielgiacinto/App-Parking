@@ -14,13 +14,21 @@ export class MainComponent {
 
   constructor(private reportService: ReportService, private router: Router, private priceService: PriceService) { }
   available: Available = new Available();
-  price: Price = new Price();
+  priceCar: Price = new Price();
+  priceMotorcycle: Price = new Price();
+  priceVan: Price = new Price();
   ngOnInit() {
     this.reportService.getQuantities().subscribe((data) => {
       this.available = data;
     });
-    this.priceService.getPrice().subscribe((data) => {
-      this.price = data;
+    this.priceService.getPrice(1).subscribe((data) => {
+      this.priceCar = data;
+    })
+    this.priceService.getPrice(2).subscribe((data) => {
+      this.priceVan = data;
+    })
+    this.priceService.getPrice(3).subscribe((data) => {
+      this.priceMotorcycle = data;
     })
   }
 

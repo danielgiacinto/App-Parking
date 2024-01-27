@@ -11,10 +11,10 @@ export class CarTypeService {
 
   constructor(private httpClient: HttpClient) { }
 
-  urlCarType: string = 'http://localhost:5284/carType';
+  urlCarType: string = 'http://localhost:5284/carTypes';
 
-  getCarType(id : number): Observable<CarType>{
-    return this.httpClient.get<CarType>(this.urlCarType + '/' + id);
+  getCarTypes(): Observable<CarType[]>{
+    return this.httpClient.get<CarType[]>(this.urlCarType);
     
   }
 }

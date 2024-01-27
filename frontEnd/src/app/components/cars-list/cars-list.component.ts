@@ -16,9 +16,7 @@ import { BrandService } from 'src/app/services/brand.service';
 import { PriceService } from 'src/app/services/price.service';
 import { jsPDF } from 'jspdf';
 import { format } from 'date-fns';
-import { CarTypeService } from 'src/app/services/carType.service';
 import { Observable, forkJoin, map } from 'rxjs';
-import { CarType } from 'src/app/Model/CarType';
 import { Payment } from 'src/app/Model/Payment';
 import { PaymentsService } from 'src/app/services/payments.service';
 
@@ -44,7 +42,6 @@ export class CarsListComponent {
   ubicacionSeleccionada: string | null = null;
   constructor(
     private carsService: CarsService,
-    private route: ActivatedRoute,
     private brandService: BrandService,
     private priceService: PriceService,
     private fb: FormBuilder,
@@ -84,12 +81,10 @@ export class CarsListComponent {
         forkJoin({
           cars: this.loadCars(),
           brands: this.brandService.getBrands(),
-          price: this.priceService.getPrice(),
           payments: this.paymentsService.getPayments(),
-        }).subscribe(({ cars, brands, price, payments }) => {
+        }).subscribe(({ cars, brands, payments }) => {
           this.cars = cars;
           this.brands = brands;
-          this.price = price;
           this.payments = payments;
         });
       }
@@ -100,6 +95,29 @@ export class CarsListComponent {
       this.cars = data;
     });
     return this.carsService.getCars();
+  }
+
+  ordenarPor(event: any) {
+    const valor = event.target.value;
+    if(valor == 1){
+      this.loadCars();
+    } else if (valor == 2){
+      this.loadCars().subscribe((originalCars) => {
+        this.cars = [...originalCars].reverse();
+      })
+    } else {
+      this.loadCars().subscribe((originalCars) => {
+        this.cars = [...originalCars];
+  
+        if (valor == 3) {
+          this.cars = this.cars.filter((car) => String(car.type) === 'Automovil');
+        } else if (valor == 4) {
+          this.cars = this.cars.filter((car) => String(car.type) === 'Camioneta');
+        } else if (valor == 5) {
+          this.cars = this.cars.filter((car) => String(car.type) === 'Motocicleta');
+        }
+      });
+    }
   }
 
   inicializarFechaEntrada() {
@@ -210,6 +228,19 @@ export class CarsListComponent {
     const dischargeDate = new Date(this.formExit.value.dischargeDate);
     const diffInMilliseconds = dischargeDate.getTime() - admissionDate.getTime();
     const diffInHours = diffInMilliseconds / (1000 * 60 * 60);
+    if(String(this.car.type) === 'Automovil'){
+      this.priceService.getPrice(1).subscribe((data) => {
+        this.price = data;
+      });
+    } else if(String(this.car.type) === 'Camioneta'){
+      this.priceService.getPrice(2).subscribe((data) => {
+        this.price = data;
+      });
+    } else {
+      this.priceService.getPrice(3).subscribe((data) => {
+        this.price = data;
+      });
+    }
     const amount = diffInHours * this.price.priceName;
     this.car.amount = amount;
   }
@@ -244,7 +275,7 @@ export class CarsListComponent {
   }
 
   formatearFecha(fecha: string): string {
-    return format(new Date(fecha), 'HH:mm  dd-MM-yyyy');
+    return format(new Date(fecha), 'HH:mm,  dd-MM-yyyy');
   }
 
   generarPDF(car: Car) {
@@ -279,4 +310,15 @@ export class CarsListComponent {
 
     pdf.save(`${car.patent}_detalle.pdf`);
   }
+
+  setCarType(event: any) {
+    const valor = event.target.value;
+    if(valor != 0){
+      this.priceService.getPrice(valor).subscribe((data) => {
+        this.price = data;
+      })
+    }
+  }
+
 }
+
