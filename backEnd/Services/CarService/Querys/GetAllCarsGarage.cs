@@ -30,7 +30,6 @@ namespace backEnd.Services.Querys
                 var carsGarage = await _context.Cars
                 .Include(c => c.TypeNavigation)
                 .Include(c => c.BrandNavigation)
-                .Include(c => c.StateNavigation)
                 .Include(c => c.FormatNavigation)
                 .Where(c => c.Garage == true)
                 .Where(c => c.Location != "None")

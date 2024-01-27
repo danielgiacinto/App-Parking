@@ -23,15 +23,12 @@ namespace backEnd.Configs {
             CreateMap<Car, CarResponse>()
             .ForMember(dest => dest.Brand, opt => opt.MapFrom(src => src.BrandNavigation.BrandName))
             .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.TypeNavigation.Type))
-            .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.StateNavigation.Status))
             .ForMember(dest => dest.Format, opt => opt.MapFrom(src => src.FormatNavigation.Format))
             .ReverseMap();
 
             // Maper para carType
             CreateMap<CarTypeResponse, CarType>().ReverseMap();
 
-            // Mapper para Status
-            CreateMap<StatusResponse, PaymentStatus>().ReverseMap();
         }
     }
 }

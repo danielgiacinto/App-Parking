@@ -4,67 +4,39 @@ using backEnd.Dto;
 using backEnd.Models;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace backEnd.Services.CarTypeService
 {
     public class GetCarTypeService
     {
 
-        public class GetCarTypeIdQuery : IRequest<CarTypeResponse>
+        public class GetCarTypeIdQuery : IRequest<List<CarTypeResponse>>
         {
-            public int IdCarType { get; set; }
+
         }
 
-        public class GetCarTypeIdValidation : AbstractValidator<GetCarTypeIdQuery>
-        {
-            public GetCarTypeIdValidation()
-            {
-                RuleFor(p => p.IdCarType).NotEmpty().NotNull().NotEqual(0);
-            }
-        }
 
-        public class GetAllBrandHandler : IRequestHandler<GetCarTypeIdQuery, CarTypeResponse>
+        public class GetAllBrandHandler : IRequestHandler<GetCarTypeIdQuery, List<CarTypeResponse>>
         {
             private readonly DbEstacionamientoContext _context;
-            private readonly GetCarTypeIdValidation _validator;
 
             private readonly IMapper _mapper;
 
-            public GetAllBrandHandler(DbEstacionamientoContext context, GetCarTypeIdValidation validator, IMapper mapper)
+            public GetAllBrandHandler(DbEstacionamientoContext context, IMapper mapper)
             {
                 _context = context;
-                _validator = validator;
                 _mapper = mapper;
             }
 
-            public async Task<CarTypeResponse> Handle(GetCarTypeIdQuery request, CancellationToken cancellationToken)
+            public async Task<List<CarTypeResponse>> Handle(GetCarTypeIdQuery request, CancellationToken cancellationToken)
             {
-                try
-                {
-                    var validator = _validator.Validate(request);
 
-                    if (!validator.IsValid)
-                    {
-                        throw new ValidationException(validator.Errors);
-                    }
-                    else
-                    {
-                        var carType = _context.CarTypes.Find(request.IdCarType);
-                        if (carType == null)
-                        {
-                            throw new Exception("El tipo de auto no existe");
-                        }
-                        else
-                        {
-                            CarTypeResponse? response = _mapper.Map<CarTypeResponse>(carType);
-                            return response;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
+                var carType = await _context.CarTypes.ToListAsync();
+
+                List<CarTypeResponse>? response = _mapper.Map<List<CarTypeResponse>>(carType);
+                return response;
+
             }
         }
     }

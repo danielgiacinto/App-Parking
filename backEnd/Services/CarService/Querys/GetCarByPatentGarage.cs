@@ -62,7 +62,6 @@ namespace backEnd.Services.Querys
                     var car = await _context.Cars
                         .Include(c => c.TypeNavigation)
                         .Include(c => c.BrandNavigation)
-                        .Include(c => c.StateNavigation)
                         .Include(c => c.FormatNavigation)
                         .Where(c => c.Patent == request.Patent.ToUpper())
                         .Where(c => c.Garage == true)

@@ -23,14 +23,11 @@ public partial class DbEstacionamientoContext : DbContext
 
     public virtual DbSet<PaymentFormat> PaymentFormats { get; set; }
 
-    public virtual DbSet<PaymentStatus> PaymentStatuses { get; set; }
-
     public virtual DbSet<Price> Prices { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-
         => optionsBuilder.UseNpgsql("Server=localhost;Database=db_estacionamiento;User ID=postgres;Password=123456;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -71,13 +68,9 @@ public partial class DbEstacionamientoContext : DbContext
             entity.Property(e => e.Location)
                 .HasColumnType("character varying")
                 .HasColumnName("location");
-            entity.Property(e => e.Model)
-                .HasColumnType("character varying")
-                .HasColumnName("model");
             entity.Property(e => e.Patent)
                 .HasColumnType("character varying")
                 .HasColumnName("patent");
-            entity.Property(e => e.State).HasColumnName("state");
             entity.Property(e => e.Type).HasColumnName("type");
 
             entity.HasOne(d => d.BrandNavigation).WithMany(p => p.Cars)
@@ -87,10 +80,6 @@ public partial class DbEstacionamientoContext : DbContext
             entity.HasOne(d => d.FormatNavigation).WithMany(p => p.Cars)
                 .HasForeignKey(d => d.Format)
                 .HasConstraintName("fk_format");
-
-            entity.HasOne(d => d.StateNavigation).WithMany(p => p.Cars)
-                .HasForeignKey(d => d.State)
-                .HasConstraintName("fk_state");
 
             entity.HasOne(d => d.TypeNavigation).WithMany(p => p.Cars)
                 .HasForeignKey(d => d.Type)
@@ -119,18 +108,6 @@ public partial class DbEstacionamientoContext : DbContext
             entity.Property(e => e.Format)
                 .HasColumnType("character varying")
                 .HasColumnName("format");
-        });
-
-        modelBuilder.Entity<PaymentStatus>(entity =>
-        {
-            entity.HasKey(e => e.IdStatus).HasName("payment_status_pkey");
-
-            entity.ToTable("payment_status");
-
-            entity.Property(e => e.IdStatus).HasColumnName("id_status");
-            entity.Property(e => e.Status)
-                .HasColumnType("character varying")
-                .HasColumnName("status");
         });
 
         modelBuilder.Entity<Price>(entity =>

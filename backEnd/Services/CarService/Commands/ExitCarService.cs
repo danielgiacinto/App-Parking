@@ -79,7 +79,6 @@ namespace backEnd.Services.CarService.Commands
                     var car = await _context.Cars
                     .Include(c => c.TypeNavigation)
                     .Include(c => c.BrandNavigation)
-                    .Include(c => c.StateNavigation)
                     .Include(c => c.FormatNavigation)
                     .Where(c => c.Patent == request.Patent.ToUpper() && c.Garage).FirstOrDefaultAsync();
 
@@ -96,7 +95,6 @@ namespace backEnd.Services.CarService.Commands
                     car.Location = "None";
                     car.DischargeDate = request.DischargeDate;
                     car.Format = request.Format;
-                    car.State = 2;
                     TimeSpan duration = request.DischargeDate - car.AdmissionDate;
                     Price? price = await _context.Prices.FindAsync(1);
                     car.Amount = (decimal)duration.TotalHours * price.PriceName;

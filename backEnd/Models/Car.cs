@@ -13,13 +13,9 @@ public partial class Car
 
     public int? Brand { get; set; }
 
-    public string? Model { get; set; }
-
     public DateTime AdmissionDate { get; set; }
 
     public DateTime? DischargeDate { get; set; }
-
-    public int? State { get; set; }
 
     public decimal Amount { get; set; }
 
@@ -32,8 +28,6 @@ public partial class Car
     public virtual Brand? BrandNavigation { get; set; }
 
     public virtual PaymentFormat? FormatNavigation { get; set; }
-
-    public virtual PaymentStatus? StateNavigation { get; set; }
 
     public virtual CarType? TypeNavigation { get; set; }
 }

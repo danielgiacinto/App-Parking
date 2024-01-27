@@ -5,6 +5,6 @@ namespace backEnd.Dto
     {
         public int IdCarType { get; set; }
 
-        public string? CarTypeName { get; set; }
+        public string? Type { get; set; }
     }
 }

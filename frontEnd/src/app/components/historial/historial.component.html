@@ -34,14 +34,13 @@
           <h2 class="accordion-header">
             <button class="accordion-button collapsed fs-5 text-primary fst-italic" type="button" data-bs-toggle="collapse" 
             [attr.data-bs-target]="'#flush-collapse' + i" aria-expanded="false" [attr.aria-controls]="'flush-collapse' + i">
-              <span class="fw-bold"><i class="bi bi-textarea-resize"></i> {{ car.patent }}</span> - {{ car.type }} - {{car.brand}}, {{car.model}}
+              <span class="fw-bold"><i class="bi bi-textarea-resize"></i> {{ car.patent }}</span> - {{ car.type }} - {{car.brand}}
             </button>
           </h2>
           <div [id]="'flush-collapse' + i" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
               <h5><i class="bi bi-calendar4-week"></i> Fecha de ingreso: {{ car.admissionDate}}</h5>
               <h5><i class="bi bi-calendar2-week-fill"></i> Fecha de egreso: {{ car.dischargeDate}}</h5>
-              <h5><i class="bi bi-card-checklist"></i> Estado: {{ car.state}}</h5>
               <h5><i class="bi bi-cash-coin"></i> Monto cobrado: {{ car.amount | currency}}</h5>
               <h5> <i class="bi bi-coin"></i> Tipo de cobro: {{car.format}}</h5>
             </div>

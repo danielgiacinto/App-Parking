@@ -5,7 +5,7 @@ using static backEnd.Services.CarTypeService.GetCarTypeService;
 
 namespace backEnd.Controllers {
     [ApiController]
-    [Route("/carType")]
+    [Route("/carTypes")]
     public class CarTypeController : ControllerBase
     {
 
@@ -16,9 +16,9 @@ namespace backEnd.Controllers {
             _mediator = mediator;
         }
 
-        [HttpGet("{id}")]
-        public Task<CarTypeResponse> GetCarType(int id){
-            return _mediator.Send(new GetCarTypeIdQuery{IdCarType = id});
+        [HttpGet]
+        public Task<List<CarTypeResponse>> GetCarType(){
+            return _mediator.Send(new GetCarTypeIdQuery());
         }
 
     }

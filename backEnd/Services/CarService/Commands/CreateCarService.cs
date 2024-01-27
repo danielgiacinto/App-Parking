@@ -21,11 +21,7 @@ namespace backEnd.Services.CarService.Commands
 
             public int? Brand { get; set; }
 
-            public string? Model { get; set; }
-
             public DateTime AdmissionDate { get; set; }
-
-            public int? State { get; set; }
 
             public string? Location { get; set; }
         }
@@ -42,10 +38,8 @@ namespace backEnd.Services.CarService.Commands
                 .Must(ValidatePatent).WithMessage("El auto ya existe en el garage.");
                 RuleFor(c => c.Type).NotEmpty().NotNull().NotEqual(0);
                 RuleFor(c => c.Brand).NotEmpty().NotNull().NotEqual(0);
-                RuleFor(c => c.Model).NotEmpty().NotNull().MaximumLength(25);
                 RuleFor(c => c.AdmissionDate).NotNull()
                 .Must(FechaActual).WithMessage("La fecha debe ser a la actual");
-                RuleFor(c => c.State).NotEmpty().NotNull().NotEqual(0);
                 RuleFor(c => c.Location).NotEmpty().NotNull().MaximumLength(4)
                 .Must(ValidateLocation).WithMessage("La ubicacion ya esta siendo ocupada.");
             }
@@ -101,11 +95,11 @@ namespace backEnd.Services.CarService.Commands
                         car.Patent = request.Patent.ToUpper();
                         car.Garage = true;
                         car.Amount = 0;
-                        car.Format = 1;
+                        car.Format = 5;
 
                         await _context.AddAsync(car);
                         await _context.SaveChangesAsync();
-                        car = _context.Cars.Include(c => c.TypeNavigation).Include(c => c.BrandNavigation).Include(c => c.StateNavigation).Include(c => c.FormatNavigation).First(c => c.IdCar == IdCar);
+                        car = _context.Cars.Include(c => c.TypeNavigation).Include(c => c.BrandNavigation).Include(c => c.FormatNavigation).First(c => c.IdCar == IdCar);
                         var responseCar = _mapper.Map<CarResponse>(car);
                         return responseCar;
                     }

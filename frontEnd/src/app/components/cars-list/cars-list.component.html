@@ -74,18 +74,6 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-3">
-                                <label for="model" class="form-label text-muted">Modelo</label>
-                                <input type="text" class="form-control" placeholder="Modelo" id="model" name="model"
-                                    formControlName="model">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="state" class="form-label text-muted">Estado</label>
-                                <select name="state" id="state" class="form-select" formControlName="state">
-                                    <option value="1">Pendiente</option>
-                                    <option value="2">Pagado</option>
-                                </select>
-                            </div>
                             <div class="col-md-6">
                                 <label for="date" class="form-label text-muted">Fecha ingreso</label>
                                 <input type="datetime-local" class="form-control" id="admissionDate"
@@ -93,7 +81,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label for="ubicacion" class="form-label text-muted">Ubicacion</label>
                                 <div class="ubicaciones-grid">
                                     <div *ngFor="let fila of ubicaciones let i = index" class="ubicaciones-fila">
@@ -108,17 +96,22 @@
                                 </div>
                                 <input type="hidden" formControlName="location">
                             </div>
-                            <div class="col-md-6 mt-5 text-start">
-                                <h5 class="text-muted fs-4 mt-3"> 🟢 Disponibles</h5>
-                                <h5 class="text-muted fs-4 mt-2"> 🔴 Ocupados</h5>
-                                <h5 class="text-muted fs-5 mt-5 ms-1"><i class="bi bi-tag-fill"> Tarifa x hora -
-                                        {{price.priceName | currency}}</i></h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-center pt-4">
+                                <h5 class="text-muted fs-4"> 🟢 Disponibles</h5>
+                                <h5 class="text-muted fs-4"> 🔴 Ocupados</h5>
+                            </div>
+                            <div class="col-md-6 text-start pt-4">
+                                <p class="text-muted fs-4"><i class="bi bi-tag-fill"> Tarifa x hora -
+                                    {{price.priceName | currency}}</i>
+                            </p>
                             </div>
                         </div>
                         <div class="modal-footer mb-0">
-                            <button type="button" class="btn btn-secondary p-3 fs-6" data-bs-dismiss="modal"><i
+                            <button type="button" class="btn btn-secondary p-3" data-bs-dismiss="modal"><i
                                     class="bi bi-x-lg"></i>Cancelar</button>
-                            <button type="submit" class="btn btn-success p-3 fs-6" [disabled]="formRegister.invalid"><i
+                            <button type="submit" class="btn btn-success p-3" [disabled]="formRegister.invalid"><i
                                     class="bi bi-check-lg"></i>Registrar</button>
                         </div>
                     </form>
@@ -176,9 +169,11 @@
                             <div class="col-md-6">
                                 <label for="brand" class="form-label text-muted">Tipo de cobro</label>
                                 <select name="format" id="format" class="form-select" formControlName="format">
-                                    <option *ngFor="let payment of payments" [value]="payment.id">
-                                        {{payment.format}}
-                                    </option>
+                                    <ng-container *ngFor="let payment of payments">
+                                        <option *ngIf="payment.id != 5" [value]="payment.id">
+                                            {{ payment.format }}
+                                        </option>
+                                    </ng-container>
                                 </select>
                             </div>
                             <div class="col-md-6 mt-4">
@@ -211,13 +206,13 @@
             <div class="card p-2 rounded-5 shadow tarjeta">
                 <div class="card-body m-0">
                     <h5 class="card-title fw-bolder fs-3 m-0">{{car.patent}}</h5>
-                    <p class="card-text fw-light fs-5 m-0">{{car.type}}, {{car.brand}} - {{car.model}}</p>
+                    <p class="card-text fw-light fs-5 m-0">{{car.type}}, {{car.brand}}</p>
                 </div>
                 <div class="card-footer text-white text-opacity-75">
                     <h4 class="card-text"><i class="bi bi-calendar4-week"> Entrada | </i>
                         {{formatearFecha(car.admissionDate.toString())}}</h4>
                     <h4 class="card-text"><i class="bi bi-geo-alt"> Ubicacion | </i>{{car.location}}</h4>
-                    <h4 class="card-text"><i class="bi bi-card-checklist"> Estado | </i>{{car.state}}</h4>
+                    <h4 class="card-text"><i class="bi bi-cash-coin"></i> Pago | {{car.format}} </h4>
                 </div>
                 <div class="card-body">
                     <button type="button" class="btn btn-warning opacity-75 me-3" (click)="generarPDF(car)"><i

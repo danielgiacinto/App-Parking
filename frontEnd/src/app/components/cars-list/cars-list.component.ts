@@ -37,12 +37,9 @@ export class CarsListComponent {
   formRegister: FormGroup = new FormGroup({});
   formExit: FormGroup = new FormGroup({});
   ubicaciones: string[][] = [
-    ['A1', 'A2', 'A3', 'A4', 'A5'],
-    ['B1', 'B2', 'B3', 'B4', 'B5'],
-    ['C1', 'C2', 'C3', 'C4', 'C5'],
-    ['D1', 'D2', 'D3', 'D4', 'D5'],
-    ['E1', 'E2', 'E3', 'E4', 'E5'],
-    ['F1', 'F2', 'F3', 'F4', 'F5'],
+    ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10'],
+    ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10'],
+    ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10'],
   ];
   ubicacionSeleccionada: string | null = null;
   constructor(
@@ -61,8 +58,6 @@ export class CarsListComponent {
       ]),
       type: new FormControl('', [Validators.required]),
       brand: new FormControl('', [Validators.required]),
-      model: new FormControl('', [Validators.required]),
-      state: new FormControl('', [Validators.required]),
       admissionDate: new FormControl('', [Validators.required]),
       location: new FormControl('', [Validators.required]),
 
@@ -173,9 +168,7 @@ export class CarsListComponent {
         patent: form.value.patent,
         type: form.value.type,
         brand: form.value.brand,
-        model: form.value.model,
         garage: true,
-        state: form.value.state,
         admissionDate: form.value.admissionDate,
         dischargeDate: form.value.dischargeDate,
         location: form.value.location,
@@ -267,8 +260,6 @@ export class CarsListComponent {
       { Campo: 'Patente', Informacion: car.patent.toString() },
       { Campo: 'Tipo', Informacion: car.type.toString() },
       { Campo: 'Marca', Informacion: car.brand.toString() },
-      { Campo: 'Modelo', Informacion: car.model.toString() },
-      { Campo: 'Estado', Informacion: car.state.toString() },
       {
         Campo: 'Entrada',
         Informacion: format(new Date(car.admissionDate), 'dd-MM-yyyy HH:mm'),
