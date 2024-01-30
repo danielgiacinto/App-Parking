@@ -61,6 +61,15 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <div class="row mb-2 mt-2">
+                                <div class="col-md-6">
+                                    <input type="text" name="brand" id="brand" required="required" minlength="2" maxlength="15"
+                                    class="form-control" placeholder="Marca" [(ngModel)]="brand.brandName">
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-outline-success" (click)="createBrand(brand)"><i class="bi bi-plus-circle-fill"> Agregar</i></button>
+                                </div>
+                            </div>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -80,15 +89,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="modal-footer justify-content-start">
-                            <div class="col-md-6">
-                                <input type="text" name="brand" id="brand" required="required" minlength="2" maxlength="15"
-                                class="form-control" placeholder="Marca" [(ngModel)]="brand.brandName">
-                            </div>
-                            <div class="col-md-4">
-                                <button type="button" class="btn btn-outline-success" (click)="createBrand(brand)"><i class="bi bi-plus-circle-fill"> Agregar</i></button>
-                            </div>
                         </div>
                     </div>
                 </div>

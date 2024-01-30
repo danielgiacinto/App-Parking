@@ -6,7 +6,7 @@
       </h4>
     </div>
   </div>
-  <div class="row mb-4 rounded-5 p-3 bg-secondary bg-opacity-25">
+  <div class="row rounded-5 p-3 bg-secondary bg-opacity-25 mb-3">
     <div class="col-md-3">
       <label for="patent" class="form-label text-muted">Fecha desde</label>
       <input type="datetime-local" class="form-control" placeholder="Fecha de ingreso" [(ngModel)]="fechaDesde">
@@ -15,28 +15,64 @@
       <label for="patent" class="form-label text-muted">Fecha hasta</label>
       <input type="datetime-local" class="form-control" placeholder="Fecha de egreso" [(ngModel)]="fechaHasta">
     </div>
-    <div class="col-md-3 align-self-end">
-      <button class="btn btn-info text-white" (click)="buscarPorFechas()" type="button"><i class="bi bi-search"> Buscar</i></button>
-    </div>
-    <div class="col-md-2 align-self-end ms-5">
-      <label for="patent" class="form-label text-muted"> Ordenar por</label>
-      <select class="form-select rounded-4 text-muted bg-secondary bg-opacity-25 border-2 border-0" (change)="ordenarPor($event)">
-          <option value="1" selected>Mas recientes</option>
-          <option value="2">Mas antiguos</option>
-          <option value="3">Automovil</option>
-          <option value="4">Camioneta</option>
-          <option value="5">Motocicleta</option>
+    <div class="col-md-2">
+      <label for="" class="form-label">Tipo de cobro</label>
+      <select name="format" id="format" class="form-select">
+        <option value="0" selected>Seleccionar todos</option>
+        <ng-container *ngFor="let payment of payments">
+          <option *ngIf="payment.id != 5" [value]="payment.id">
+            {{ payment.format }}
+          </option>
+        </ng-container>
       </select>
+    </div>
+    <div class="col-md-2 align-self-end">
+      <button class="btn btn-info text-white" (click)="buscarPorFechas()" type="button"><i class="bi bi-search">
+          Buscar</i>
+      </button>
+    </div>
+    <div class="col-md-2 align-self-end text-start">
+      <button class="btn btn-secondary" type="button" (click)="limpiar()"> <i class="bi bi-x-lg"></i> Cancelar</button>
+    </div>
   </div>
-</div>
+  <div class="row">
+    <div class="col-md-3">
+      <h4 class="text-secondary ps-2 fw-light ps-5 ms-5">{{ carsHistorical.length }} resultados</h4>
+    </div>
+  </div>
+  <hr>
   <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col-md-12" style="padding-right: 100px; padding-left: 100px;">
-      <div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="col-md-12">
+      <table class="table table-hover table-primary table-bordered">
+        <thead>
+          <tr class="table-dark opacity-75 fs-5 text-center">
+            <th scope="col"><i class="bi bi-car-front-fill"></i> Tipo</th>
+            <th scope="col"><i class="bi bi-calendar-date"></i> Fecha de ingreso</th>
+            <th scope="col"><i class="bi bi-calendar-date"></i> Fecha de egreso</th>
+            <th scope="col"><i class="bi bi-wallet2"></i> Tipo de Cobro</th>
+            <th scope="col"><i class="bi bi-currency-dollar"></i> Monto cobrado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of carsHistorical" class="fs-5 text-center fw-medium">
+            <td>{{ car.type }}</td>
+            <td>{{formatearFecha(car.admissionDate.toString())}}</td>
+            <td>{{formatearFecha(car.dischargeDate.toString())}}</td>
+            <td>{{ car.format}}</td>
+            <td class="fw-bolder table-success">{{ car.amount | currency}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <div class="col-md-12" style="padding-right: 100px; padding-left: 100px;">
+      <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
         <div class="accordion-item" *ngFor="let car of carsHistorical; let i = index">
           <h2 class="accordion-header">
-            <button class="accordion-button collapsed fs-5 text-primary fst-italic" type="button" data-bs-toggle="collapse" 
-            [attr.data-bs-target]="'#flush-collapse' + i" aria-expanded="false" [attr.aria-controls]="'flush-collapse' + i">
-              <span class="fw-bold"><i class="bi bi-textarea-resize"></i> {{ car.patent }}</span> - {{ car.type }} - {{car.brand}}
+            <button class="accordion-button collapsed fs-5 text-primary fst-italic" type="button"
+              data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapse' + i" aria-expanded="false"
+              [attr.aria-controls]="'flush-collapse' + i">
+              <span class="fw-bold"><i class="bi bi-textarea-resize"></i> {{ car.patent }}</span> - {{ car.type }} -
+              {{car.brand}}
             </button>
           </h2>
           <div [id]="'flush-collapse' + i" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -49,6 +85,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
